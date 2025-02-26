@@ -1,1 +1,1 @@
-# PI_labs
+# Laborator de procesare imagini
