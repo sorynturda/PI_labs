@@ -1,1 +1,0 @@
-. "/home/mihnea/Documents/an3sem2/PI/lab2/cmake-build-debug/deactivate_conanrunenv-debug-x86_64.sh"

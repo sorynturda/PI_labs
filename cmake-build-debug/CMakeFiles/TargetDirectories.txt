@@ -1,3 +1,0 @@
-/home/mihnea/Documents/an3sem2/PI/lab2/cmake-build-debug/CMakeFiles/lab2.dir
-/home/mihnea/Documents/an3sem2/PI/lab2/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/mihnea/Documents/an3sem2/PI/lab2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
