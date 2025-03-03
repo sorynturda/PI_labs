@@ -1,0 +1,4 @@
+ToolSet: 1.0 (local)Ninja: 1.12.1@/home/mihnea/tools/jetbrains_tools/clion/bin/ninja/linux/x64/ninja
+Options: 
+
+Options:-DCMAKE_MAKE_PROGRAM=/home/mihnea/tools/jetbrains_tools/clion/bin/ninja/linux/x64/ninja

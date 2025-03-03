@@ -1,0 +1,3 @@
+/home/mihnea/Documents/sem2/PI/image-processing-laboratory_linux_template/build-dir/CMakeFiles/opengl_template.dir
+/home/mihnea/Documents/sem2/PI/image-processing-laboratory_linux_template/build-dir/CMakeFiles/edit_cache.dir
+/home/mihnea/Documents/sem2/PI/image-processing-laboratory_linux_template/build-dir/CMakeFiles/rebuild_cache.dir

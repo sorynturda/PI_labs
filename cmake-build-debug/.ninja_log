@@ -1,0 +1,10 @@
+# ninja log v6
+3080	3744	1741004383238556897	opengl_template	54fdb8d48a164f45
+1	585	1741005319011798012	build.ninja	def05ba8fe538ba2
+2	1083	1741005327269100157	CMakeFiles/lab2.dir/src/slider/slider.cpp.o	c4c309e69be46b2
+2	1179	1741005327269100157	CMakeFiles/lab2.dir/src/common/logger/logger.cpp.o	83293fc90987ea0e
+1	1301	1741005327268100120	CMakeFiles/lab2.dir/main.cpp.o	ea5a6f174b4811aa
+2	2069	1741005327269100157	CMakeFiles/lab2.dir/src/common/misc.cpp.o	ae59854d8af0c6fa
+1	2321	1741005327268100120	CMakeFiles/lab2.dir/src/color_spaces/spaces.cpp.o	47909b4548a40403
+1	3057	1741005327268100120	CMakeFiles/lab2.dir/src/common/file/file_utils.cpp.o	58732aa92c02399d
+3057	3600	1741005330324211947	lab2	b05fe9fd06d5b78
