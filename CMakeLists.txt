@@ -1,6 +1,6 @@
 # Project definition
 cmake_minimum_required(VERSION 3.21)
-project(lab2)
+project(procesare_imagini)
 
 # Search all directories that contain headers
 macro(HEADER_DIRECTORIES return_list)
