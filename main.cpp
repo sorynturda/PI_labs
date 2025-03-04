@@ -602,6 +602,163 @@ void computeMatrixInverse() {
     scanf("%c", &c);
 }
 
+// lab2
+void splitRGBChannels() {
+    std::string fname;
+    while (openFileDlg(fname)) {
+        Mat src = imread(fname);
+
+        int height = src.rows;
+        int width = src.cols;
+
+        Mat dst = Mat(height, width, CV_8UC3);
+        Mat red_channel = Mat(height, width, CV_8UC3);
+        Mat blue_channel = Mat(height, width, CV_8UC3);
+        Mat green_channel = Mat(height, width, CV_8UC3);
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                Vec3b v3 = src.at<Vec3b>(i, j);
+                uchar b = v3[0];
+                uchar g = v3[1];
+                uchar r = v3[2];
+                red_channel.at<Vec3b>(i, j) = {r, 0, 0};
+                green_channel.at<Vec3b>(i, j) = {0, g, 0};
+                blue_channel.at<Vec3b>(i, j) = {0, 0, b};
+            }
+        }
+        // vector<Mat> rgb(3);
+        //
+        // split(src, rgb);
+        //
+        // red_channel = rgb[2];
+        // green_channel = rgb[1];
+        // blue_channel = rgb[0];
+        imshow("input image", src);
+        imshow("blue", blue_channel);
+        imshow("green", green_channel);
+        imshow("red", red_channel);
+        waitKey();
+    }
+}
+
+void fromRGB24toGrayScale() {
+    std::string fname;
+    while (openFileDlg(fname)) {
+        Mat src = imread(fname);
+
+        int height = src.rows;
+        int width = src.cols;
+
+        Mat dst = Mat(height, width, CV_8UC3);
+        Mat gray_scale_image = Mat(height, width, CV_8UC3);;
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                Vec3b v3 = src.at<Vec3b>(i, j);
+                uchar b = v3[0];
+                uchar g = v3[1];
+                uchar r = v3[2];
+                uchar mean = (r + b + g) / 3;
+                gray_scale_image.at<Vec3b>(i, j) = {mean, mean, mean};
+            }
+        }
+
+        imshow("input image", src);
+        imshow("grayscale", gray_scale_image);
+        waitKey();
+    }
+}
+
+
+void fromGrayScaleToBlackAndWhite() {
+    std::string fname;
+    uchar threshold = 128;
+
+    while (openFileDlg(fname)) {
+        Mat src = imread(fname);
+
+        int height = src.rows;
+        int width = src.cols;
+
+        Mat dst = Mat(height, width, CV_8UC1);
+        Mat black_and_white_image = Mat(height, width, CV_8UC1);;
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                uchar val = src.at<uchar>(i, j);
+
+                black_and_white_image.at<uchar>(i, j) = val > threshold ? 0 : 255;
+            }
+        }
+
+        imshow("input image", src);
+        imshow("black and white", black_and_white_image);
+        waitKey();
+    }
+}
+
+void convertRGBtoHSV() {
+    std::string fname;
+
+    while (openFileDlg(fname)) {
+        Mat src = imread(fname);
+
+        int height = src.rows;
+        int width = src.cols;
+
+        Mat dst = Mat(height, width, CV_8UC1);
+        Mat hue_channel = Mat(height, width, CV_8UC1);
+        Mat saturation_channel = Mat(height, width, CV_8UC1);
+        Mat value_channel = Mat(height, width, CV_8UC1);
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                Vec3b v3 = src.at<Vec3b>(i, j);
+                float b = (float) v3[0] / 255;
+                float g = (float) v3[1] / 255;
+                float r = (float) v3[2] / 255;
+
+                float M = max(r, max(g, b));
+                float m = min(r, min(g, b));
+                float v = M;
+                float C = M - m;
+                float s, h;
+                if (v != 0)
+                    s = C / v;
+                else
+                    s = 0;
+                if (C != 0) {
+                    if (M == r) h = 60 * (g - b) / C;
+                    if (M == g) h = 120 + 60 * (b - r) / C;
+                    if (M == b) h = 240 + 60 * (r - g) / C;
+                } else // grayscale
+                    h = 0;
+                if (h < 0)
+                    h = h + 360;
+                uchar h_norm = h * 255 / 360;
+                uchar s_norm = s * 255;
+                uchar v_norm = v * 255;
+                hue_channel.at<uchar>(i, j) = h_norm;
+                saturation_channel.at<uchar>(i, j) = s_norm;
+                value_channel.at<uchar>(i, j) = v_norm;
+            }
+        }
+        // vector<Mat> rgb(3);
+        //
+        // split(src, rgb);
+        //
+        // red_channel = rgb[2];
+        // green_channel = rgb[1];
+        // blue_channel = rgb[0];
+        imshow("input image", src);
+        imshow("hue", hue_channel);
+        imshow("saturation", saturation_channel);
+        imshow("value", value_channel);
+        waitKey();
+    }
+}
+
 int main() {
     cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_FATAL);
 
@@ -629,12 +786,17 @@ int main() {
         printf(" 11 - Snap frame from live video\n");
         printf(" 12 - Mouse callback demo\n");
 
-        //lab 1
+        // lab 1
         printf(" 13 - Change the gray level of image using additive factor\n");
         printf(" 14 - Change the gray level of image using multiplicative factor\n");
         printf(
             " 15 - Create a color image of dimension 256 x 256. Divide it into 4 squares and color the squares from top to bottom, left to right as : white, red, green, yellow.\n");
         printf(" 16 - Create a 3x3 float matrix, determine its inverse and print it.\n");
+        // lab2
+        printf(" 17 - Split RGB24 (CV_8UC3) into CV_8UC1 R, G, B.\n");
+        printf(" 18 - Convert RGB24 (CV_8UC3) into CV_8UC1 grayscale.\n");
+        printf(" 19 - Convert grayscale (CV_8UC1) into CV_8UC1 Black and White.\n");
+        printf(" 20 - RGB to HSV.\n");
 
 
         printf(" 0 - Exit\n\n");
@@ -689,6 +851,18 @@ int main() {
                 break;
             case 16:
                 computeMatrixInverse();
+                break;
+            //lab 2
+            case 17:
+                splitRGBChannels();
+                break;
+            case 18:
+                fromRGB24toGrayScale();
+            case 19:
+                fromGrayScaleToBlackAndWhite();
+                break;
+            case 20:
+                convertRGBtoHSV();
                 break;
         }
     } while (op != 0);
